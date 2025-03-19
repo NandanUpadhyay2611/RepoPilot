@@ -12,15 +12,15 @@ const PORT=process.env.PORT || 5000;
 
 
 app.use(cors({
-    origin:process.env.FRONTEND_HOSTED_URL || "http://localhost:5173",
+    origin: process.env.FRONTEND_HOSTED_URL || "http://localhost:5173",
     methods: "GET,POST,PUT,DELETE",
     credentials:true,
 }));
-app.use(cors({ origin: process.env.FRONTEND_URL }));
+
 app.use(clerkMiddleware());
 app.use(express.json());
 app.use((req,res,next)=>{
-    const userId=getAuth(req);
+    const { userId } = getAuth(req) || {};
     req.user={clerkId:userId};
     next();
 })

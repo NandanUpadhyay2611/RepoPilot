@@ -4,7 +4,6 @@ import AppSidebarComponent from './AppSidebarComponent'
 
 import { UserButton } from "@clerk/clerk-react";
 
-// const PropTypes =require('prop-types')
 import PropTypes from "prop-types";
 
 

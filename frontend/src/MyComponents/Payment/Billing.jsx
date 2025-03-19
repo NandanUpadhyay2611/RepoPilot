@@ -7,6 +7,9 @@ import axios from "axios";
 import { Info } from "lucide-react";
 import { useEffect, useState } from "react";
 
+
+const API_BASEURL=import.meta.env.VITE_BACKEND_API_BASEURL;
+
 const Billing=()=>{
 const [credits,setCredits]=useState(0);
 const [creditsToBuy,setCreditsToBuy]=useState([100]);
@@ -18,7 +21,7 @@ const {getToken}=useAuth();
 
    const getCredits=async()=>{
     const token=await getToken();
-    const response=await axios.get("http://localhost:5000/api/getcredits",{
+    const response=await axios.get(`${API_BASEURL}/api/getcredits`,{
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,

@@ -7,6 +7,9 @@ export const octokit= new Octokit({
 })
 // const githubUrl="";
 
+
+const API_BASEURL=import.meta.env.VITE_BACKEND_API_BASEURL;
+
 export const getCommitHashes=async (githubUrl)=>{
 
     const [owner,repo]=githubUrl.split('/').slice(-2);   // sliced owner and repo from url
@@ -86,7 +89,7 @@ export const pullCommits = async (projectId, token) => {
         response.status === 'fulfilled' ? response.value : ""
     );
 
-    const commits = await axios.post('http://localhost:5000/api/addCommit',
+    const commits = await axios.post(`${API_BASEURL}/api/addCommit`,
         {  
             commits: summaries?.map((summary, index) => ({
                 projectId: projectId,
@@ -136,7 +139,7 @@ async function fetchCommitDiff(githubUrl, commitHash) {
 
 async function fetchProjectGithubUrl(projectId,token){
    
-    const response=await axios.get(`http://localhost:5000/api/getProject/${projectId}`,{
+    const response=await axios.get(`${API_BASEURL}/api/getProject/${projectId}`,{
         headers:{
             "Content-Type":"application/json",
             Authorization:`Bearer ${token}`
@@ -158,7 +161,7 @@ async function fetchProjectGithubUrl(projectId,token){
 
 async function filterUnprocessedCommits(projectId,commitHashes,token){
 
-    const response=await axios.get(`http://localhost:5000/api/getCommits/${projectId}`,
+    const response=await axios.get(`${API_BASEURL}/api/getCommits/${projectId}`,
         {
             headers:{
                "Content-Type":"application/json",

@@ -9,6 +9,8 @@ import { Button } from '@/components/ui/button';
 import useProject from "@/hooks/use-project";
 
 
+const API_BASEURL=import.meta.env.VITE_BACKEND_API_BASEURL;
+
 const InviteButton=()=>{
     const {selectedProject}=useProject()
     const [open,setOpen]=useState(false);
@@ -23,10 +25,10 @@ const InviteButton=()=>{
         Ask them to copy and paste this link
     </p>
     <Input className='mt-4' readOnly onClick={()=>{
-        navigator.clipboard.writeText(`http://localhost:5000/api/join/${selectedProject?.id}`)
+        navigator.clipboard.writeText(`${API_BASEURL}/api/join/${selectedProject?.id}`)
         toast.success("Copied to clipboard.")
     }}
-    value={`http://localhost:5000/api/join/${selectedProject?.id}`} />
+    value={`${API_BASEURL}/api/join/${selectedProject?.id}`} />
 
 </DialogContent>
         </Dialog>

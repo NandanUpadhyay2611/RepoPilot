@@ -8,7 +8,7 @@ import { useAuth } from "@clerk/clerk-react";
 const google= new createGoogleGenerativeAI({
     apiKey: import.meta.env.VITE_GEMINI_KEY,
 })
-
+const API_BASEURL=import.meta.env.VITE_BACKEND_API_BASEURL;
 export function useAskQuestion(question,projectId){
    const [output,setOutput]=useState("") //streaming AI-generated text.
    const [loading,setLoading]=useState(false);
@@ -28,7 +28,7 @@ export function useAskQuestion(question,projectId){
             // const vectorQuery=`[${queryVector.join(',')}]`; //converted in string to execute in raw sql query later we will cast in vector again
 
             const vectorQuery=queryVector;
-            const result=await axios.post(`http://localhost:5000/api/askQuestion/${projectId}`,{
+            const result=await axios.post(`${API_BASEURL}/api/${projectId}`,{
                 vectorQuery
             },{
                 headers: {

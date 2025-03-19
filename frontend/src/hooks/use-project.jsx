@@ -4,6 +4,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelectedProjectContext } from "./selectProjectProvider";
 
+
+const API_BASEURL=import.meta.env.VITE_BACKEND_API_BASEURL; 
+
 const useProject=()=>{
 
     const { selectedProjectId } = useSelectedProjectContext();
@@ -18,7 +21,7 @@ const useProject=()=>{
         queryKey:['projects'],
         queryFn: async ()=>{
             const token=await getToken();
-            const response=await axios.get('http://localhost:5000/api/getAllProjects',{
+            const response=await axios.get(`${API_BASEURL}/api/getAllProjects`,{
                 headers:{
                     "Content-Type":"application/json",
                     Authorization:`Bearer ${token}`

@@ -5,6 +5,9 @@ import { Octokit } from 'octokit'
 import { octokit } from './github'
 
 
+const API_BASEURL=import.meta.env.VITE_BACKEND_API_BASEURL;
+
+
 const getFileCount=async (path,octokit,githubOwner,githubRepo,acc=0)=>{
 
     const {data}=await octokit.rest.repos.getContent({
@@ -83,7 +86,7 @@ const processedEmbeddings = await Promise.all(
     }))
 );
 
-const embedds = await axios.post(`http://localhost:5000/api/addEmbeddings`, {
+const embedds = await axios.post(`${API_BASEURL}/api/addEmbeddings`, {
     embeddings: processedEmbeddings 
 }, {
     headers: {

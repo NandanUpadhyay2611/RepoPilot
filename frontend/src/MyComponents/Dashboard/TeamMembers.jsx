@@ -4,6 +4,8 @@ import axios from "axios"
 import { useEffect, useState } from "react";
 
 
+const API_BASEURL=import.meta.env.VITE_BACKEND_API_BASEURL;
+
 const TeamMembers=()=>{
     const {selectedProject}=useProject();
 const {getToken}=useAuth();
@@ -13,7 +15,7 @@ const [members,setMembers]=useState([]);
 
         const token=await getToken();
 
-        const response=await axios.get(`http://localhost:5000/api/teammembers/${selectedProject.id}`,{
+        const response=await axios.get(`${API_BASEURL}/api/teammembers/${selectedProject.id}`,{
             headers:{
                 "Content-Type":"application/json",
                 Authorization:`Bearer ${token}`

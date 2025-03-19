@@ -2,10 +2,12 @@
 import { useAuth } from "@clerk/clerk-react";
 import axios from "axios";
 
+
+const API_BASEURL=import.meta.env.VITE_BACKEND_API_BASEURL;
 export const handlePayment=async(price,credits,getToken)=>{
     try{
 
-        const response=await axios.post(`http://localhost:5000/api/payment/createorder`,{
+        const response=await axios.post(`${API_BASEURL}/api/payment/createorder`,{
             amount:price,
             currency: 'USD',
         });
@@ -24,7 +26,7 @@ export const handlePayment=async(price,credits,getToken)=>{
                 try {
                     const token=await getToken();
                     const call = await axios.post(
-                        "http://localhost:5000/api/addcredits",
+                        `${API_BASEURL}/api/addcredits`,
                         { creditsPurchased: credits },
                         {
                             headers: {

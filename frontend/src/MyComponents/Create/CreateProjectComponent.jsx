@@ -13,6 +13,8 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
+const API_BASEURL=import.meta.env.VITE_BACKEND_API_BASEURL; 
+
 const CreateProjectComponent=()=>{
     const {register,handleSubmit,reset}=useForm();
     const [creditsBalance,setCreditBalance]=useState(null);
@@ -28,7 +30,7 @@ const {getToken}=useAuth();
             const getCredits=async()=>{
                 const token=await getToken();
             
-                const response=await axios.get("http://localhost:5000/api/getcredits",{
+                const response=await axios.get(`${API_BASEURL}/api/getcredits`,{
                    
                         headers: {
                             "Content-Type": "application/json",
@@ -72,7 +74,7 @@ const {getToken}=useAuth();
     const createProject=async (data)=>{
         try{
             const token=await getToken();
-            const response =await axios.post('http://localhost:5000/api/create-project',{
+            const response =await axios.post(`${API_BASEURL}/api/create-project`,{
             projectName:data.projectName,
             repoUrl:data.repoUrl,
             githubToken:data.githubToken,

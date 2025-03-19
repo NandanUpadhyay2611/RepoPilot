@@ -7,6 +7,10 @@ import { toast } from "react-toastify";
 import { Loader, LoaderPinwheel } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 
+
+
+const API_BASEURL=import.meta.env.VITE_BACKEND_API_BASEURL;
+
 const ArchiveProject = () => {
     const { selectedProject } = useProject();
     const { getToken } = useAuth();
@@ -19,7 +23,7 @@ const ArchiveProject = () => {
             const token = await getToken();
 
             const response = await axios.put(
-                `http://localhost:5000/api/archiveproject/${selectedProject.id}`,
+                `${API_BASEURL}/api/archiveproject/${selectedProject.id}`,
                 {}, 
                 {
                     headers: {

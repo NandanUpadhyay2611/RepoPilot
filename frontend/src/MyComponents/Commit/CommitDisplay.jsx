@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import { ExternalLink } from "lucide-react";
 import { pullCommits } from "@/lib/github";
 
+
+const API_BASEURL=import.meta.env.VITE_BACKEND_API_BASEURL;
 const CommitDisplay=()=>{
     const {getToken}=useAuth(); 
     const {selectedProject}=useProject();
@@ -15,7 +17,7 @@ const CommitDisplay=()=>{
     const getCommits=async ()=>{
         try{
             const token=await getToken();
-            const response=await axios.get(`http://localhost:5000/api/getCommits/${selectedProject?.id}`,
+            const response=await axios.get(`${API_BASEURL}/api/getCommits/${selectedProject?.id}`,
                 {
                     headers:{
                        "Content-Type":"application/json",

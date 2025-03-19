@@ -11,16 +11,16 @@ function useSelectedProject() {
     localStorage.setItem("selectedProjectId", JSON.stringify(selectedProjectId));
   }, [selectedProjectId]);
 
-  const queryClient = useQueryClient(); // ✅ Use existing Query Client
+  const queryClient = useQueryClient(); 
 
   const queryResult = useQuery({
     queryKey: ["selectedProject", selectedProjectId],
     queryFn: async () => {
-      const projects = queryClient.getQueryData(["projects"]); // ✅ Correctly access cached projects
-      if (!projects) return null; // ✅ Prevent errors if projects are not available
+      const projects = queryClient.getQueryData(["projects"]);
+      if (!projects) return null; 
       return projects.find((p) => p.id === selectedProjectId) || null;
     },
-    enabled: !!selectedProjectId, // ✅ Ensure query only runs when selectedProjectId is valid
+    enabled: !!selectedProjectId, // Ensure query only runs when selectedProjectId is valid
   });
 
   return { ...queryResult, selectedProjectId, setProjectId };

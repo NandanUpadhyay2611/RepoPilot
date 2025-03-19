@@ -13,6 +13,9 @@ import axios from "axios"
 import { useAuth } from "@clerk/clerk-react"
 import useRefetch from "@/hooks/use-refetch"
 
+
+const API_BASEURL=import.meta.env.VITE_BACKEND_API_BASEURL;
+
 const AskQuestionCard=()=>{
 
     const [saved, setSaved] = useState(false);
@@ -55,7 +58,7 @@ const saveAnswer=async (outputPassed,fileReferencesPassed)=>{
         const token=await getToken();
         // const {userId}=getAU
         console.log("question passed: ",question);
-    const result=await axios.post("http://localhost:5000/api/saveanswer",{
+    const result=await axios.post(`${API_BASEURL}/api/saveanswer`,{
        
             projectId:selectedProject?.id,
             question,

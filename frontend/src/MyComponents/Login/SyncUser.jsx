@@ -6,6 +6,8 @@ import { Navigate, redirect } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 
+const API_BASEURL=import.meta.env.VITE_BACKEND_API_BASEURL;
+
 const SyncUser=()=>{
     const navigate = useNavigate();
     const [status,setStatus]=useState('syncing user data')
@@ -36,7 +38,7 @@ const SyncUser=()=>{
         if(isSignedIn && user){
             const syncUser=async()=>{
                 try{
-                    await axios.post('http://localhost:5000/api/sync-user',{
+                    await axios.post(`${API_BASEURL}/api/sync-user`,{
                         userId:userId,
                         emailAddress:user.emailAddresses[0]?.emailAddress,
                         firstName:user.firstName,

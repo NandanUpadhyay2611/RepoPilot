@@ -19,6 +19,7 @@ import DashboardMainContentComponent from "./MyComponents/Dashboard/DashboardMai
 import QaComponent from "./MyComponents/Qa/QaComponent";
 import SidebarLayoutComponent from "./MyComponents/Dashboard/SidebarLayoutComponent";
 import CreateProjectComponent from "./MyComponents/Create/CreateProjectComponent";
+import Billing from "./MyComponents/Payment/Billing";
 
 function App() {
   return (
@@ -44,6 +45,12 @@ function App() {
             </ProtectedRoute>
           }
         ></Route>
+
+<Route path="/billing" element={<ProtectedRoute>
+  <SidebarLayoutComponent>
+    <Billing/>
+  </SidebarLayoutComponent>
+</ProtectedRoute>}></Route>
 
         <Route
           path='/create'

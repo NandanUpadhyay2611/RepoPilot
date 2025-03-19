@@ -35,6 +35,11 @@ export const pullCommits = async (projectId, token) => {
     const commitHashes = await getCommitHashes(githubUrl);
     const unprocessedCommits = await filterUnprocessedCommits(projectId, commitHashes, token);
 
+    if (unprocessedCommits.length === 0) {
+        console.log("No new commits to process.");
+        return; 
+    }
+
     const batchSize = 10; 
     const summaryResponses = [];
 
@@ -77,13 +82,13 @@ export const pullCommits = async (projectId, token) => {
     console.log("SummaryResponses: ", summaryResponses);
 
     // Prepare commit summaries for storage
-    const summaries = summaryResponses.map(response =>
+    const summaries = summaryResponses?.map(response =>
         response.status === 'fulfilled' ? response.value : ""
     );
 
     const commits = await axios.post('http://localhost:5000/api/addCommit',
         {  
-            commits: summaries.map((summary, index) => ({
+            commits: summaries?.map((summary, index) => ({
                 projectId: projectId,
                 commitMessage: unprocessedCommits[index]?.commitMessage,
                 commitHash: unprocessedCommits[index]?.commitHash,
@@ -102,6 +107,10 @@ export const pullCommits = async (projectId, token) => {
     );
 
     return commits.data;
+
+//     else{
+// return
+//     }
 };
 
 // Fetch commit diff
@@ -114,9 +123,6 @@ async function fetchCommitDiff(githubUrl, commitHash) {
     return data;
 }
 
- 
-
-   
 
 // async function summarizeCommit(githubUrl,commitHash){
 //     const {data}=await axios.get(`${githubUrl}/commit/${commitHash}.diff`,{

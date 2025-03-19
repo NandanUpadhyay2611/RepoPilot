@@ -13,6 +13,25 @@ const SyncUser=()=>{
     
     const {isSignedIn,user}=useUser();
     const {userId}=useAuth();
+
+    const { getToken } = useAuth();
+
+    useEffect(() => {
+        const helper = async () => {
+            try {
+                const token = await getToken();
+                if (token) {
+                    localStorage.setItem("authToken", token);
+                    console.log(token);
+                }
+            } catch (error) {
+                console.error("Error fetching token:", error);
+            }
+        };
+        helper();
+    }, [getToken]);  
+    
+    
     useEffect(()=>{
         if(isSignedIn && user){
             const syncUser=async()=>{

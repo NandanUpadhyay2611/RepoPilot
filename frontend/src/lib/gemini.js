@@ -47,4 +47,31 @@ It is given only as an example of appropriate comments."
     return response.response.text();
 }
 
-// console.log(await summarizeCommit("gfd"));
+
+export async function summarizeCode(doc){
+    console.log("Getting summary for: ",doc.metadata.source);
+    const code=doc.pageContent.slice(0,10000) //limit to 10000 characters
+    const response=await model.generateContent([
+        `You are an intelligent senior software engineer who specialises in onboardinq junior software engineers onto projects`,
+ `You are onboarding a junior software enqineer and explaining to them the purpose of the ${doc.metadata.source} file
+ Here is the code: 
+ ---
+ ${code}
+ ---
+        Give a summary no more than 100 words of the code above
+ `,
+    ])
+
+    return response.response.text()
+}
+
+export async function generateEmbedding(summary){
+    const model=genAI.getGenerativeModel({
+        model:"text-embedding-004"
+    })
+    const result=await model.embedContent(summary)
+    const embedding=result.embedding
+    return embedding.values
+}
+
+// console.log(await generateEmbedding("hello World"));

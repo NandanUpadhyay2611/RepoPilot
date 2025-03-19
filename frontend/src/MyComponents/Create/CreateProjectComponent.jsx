@@ -2,9 +2,12 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import useProject from '@/hooks/use-project';
 import { pullCommits } from '@/lib/github';
+import { checkCredits, indexGithubRepo } from '@/lib/github-Repo-Loader';
 import { useAuth } from '@clerk/clerk-react';
 import { useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
+import { Info } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import {useForm} from 'react-hook-form'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,25 +15,68 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const CreateProjectComponent=()=>{
     const {register,handleSubmit,reset}=useForm();
-    const {getToken}=useAuth();
+    const [creditsBalance,setCreditBalance]=useState(null);
+    const [creditNeeded,setCreditNeeded]=useState(null);
+    const [hasEnoughCreditsState,setHasEnough]=useState(true);
+
     // const {projects,fetchAllProjects}=useProject();
     const {isLoading}=useProject();
     const queryClient=useQueryClient();
+const {getToken}=useAuth();
+
+        
+            const getCredits=async()=>{
+                const token=await getToken();
+            
+                const response=await axios.get("http://localhost:5000/api/getcredits",{
+                   
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                        }
+                    });
+
+                    
+                    setCreditBalance(response.data.credits);
+                }
+               
+           
+                useEffect(()=>{
+                    const fetchCreditHelper=async()=>{
+                       await getCredits();
+                    }
+
+                    fetchCreditHelper();
+
+
+                },[])
+
+
+   
+ 
+    
+    // useEffect(()=>{
+    //     const helper=async()=>{
+    //         await fetchCredits();
+    //     }
+    //     helper();
+    // },[]);
 
     if (isLoading) {
         return <div>Loading projects...</div>;
     }
+
+   
+
     
     const createProject=async (data)=>{
         try{
             const token=await getToken();
-           
-            console.log("hi",token);
-
             const response =await axios.post('http://localhost:5000/api/create-project',{
             projectName:data.projectName,
             repoUrl:data.repoUrl,
-            githubToken:data.githubToken
+            githubToken:data.githubToken,
+            creditNeeded: creditNeeded.value
         },
     {
         headers: {
@@ -43,6 +89,7 @@ const CreateProjectComponent=()=>{
 
     
     if(response.status===200){
+
         console.log("refetching...");
         
         // await refetch()
@@ -52,7 +99,8 @@ const CreateProjectComponent=()=>{
         reset();
         console.log('fetching and adding commits...');
         await pullCommits(response.data.project.id,token);
-        
+        await indexGithubRepo(data.repoUrl,data.githubToken,token,response.data.project.id);
+
     }
     
     // console.log("response: ",JSON.stringify(response.data));
@@ -75,16 +123,27 @@ const CreateProjectComponent=()=>{
 
     function onSubmit(data){
         // window.alert(JSON.stringify(data))
-        
-        
+      
+        if(creditsBalance && creditNeeded){
              createProject(data);
-            
-           
+            }
+            else{
+                console.log("Credit Needed:", creditNeeded);
+                console.log("Credits Balance:", creditsBalance);
+                console.log("Has Enough Credits:", hasEnoughCreditsState);
+                getCredits();
+                const creditNeed=checkCredits(data.repoUrl,data.githubToken);
+                setCreditNeeded(creditNeed);
+                const hasEnoughCredits= creditsBalance ? creditNeeded<=creditsBalance :true;
+                setHasEnough(hasEnoughCredits);
+                
+            }
+            console.log("Credit Needed:", creditNeeded);
+            console.log("Credits Balance:", creditsBalance);
+            console.log("Has Enough Credits:", hasEnoughCreditsState);
 
-
-           
-        // return true;
     }
+
     return (
         <div className='flex items-center gap-12 h-full justify-center'>
             <img src='/undraw_github.svg' className='h-56 w-auto' />
@@ -108,10 +167,22 @@ const CreateProjectComponent=()=>{
                          <div className="h-2"></div>
                         <Input {...register('githubToken')}
                         placeholder='Github Token (Optional)'/>
+
+                        {creditNeeded && (
+                            <>
+                            <div className='mt-4 bg-orange px-4 py-2 rounded-md border border-orange-200 text-orange-700'>
+                                <div className='flex items-center gap-2'>
+                                    <Info className='size-4'/>
+                                    <p className='text-sm'> You will be charged <strong>{creditNeeded}</strong> credits for this repository.</p>
+                                    </div>
+                                    <p className='text-sm text-blue-600 ml-6'>You have <strong>{creditsBalance}</strong>credits remaining.</p>
+                                    </div></>
+                        )}
                         <div className="h-4"></div>
 
-                        <Button type='submit' disabled={createProject.isPending}>
-                            Create Project
+                        <Button type='submit' disabled={createProject.isPending || !hasEnoughCreditsState}>
+                            {creditNeeded ? "Create Project":"Check Credits"}
+                           
                         </Button>
 
                     </form>

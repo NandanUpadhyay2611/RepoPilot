@@ -3,6 +3,10 @@ import useSelectedProject from "@/hooks/use-selected-project";
 import { ExternalLink, Github } from "lucide-react";
 import { Link } from "react-router-dom";
 import CommitDisplay from "../Commit/CommitDisplay";
+import AskQuestionCard from "./AskQuestionCard";
+import ArchiveProject from "./ArchiveProject";
+import InviteButton from "./InviteButton";
+import TeamMembers from "./TeamMembers";
 
 function DashboardMainContentComponent() {
   const { selectedProject,isLoading } = useProject();
@@ -30,21 +34,20 @@ function DashboardMainContentComponent() {
 
       <div className="h-4"></div>
       <div className="flex items-center gap-4">
-        TeamMembers
-        InviteButton
-        ArchiveComponent
+        <TeamMembers />
+        <InviteButton/>
+       <ArchiveProject/>
       </div>
     
      </div>
      
      <div className="mt-4">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-5">
-          AskQuestionCard
+          <AskQuestionCard/>
           MeetingCard
         </div>
       </div>
       <div className="mt-8"></div>
-      CommitLog
       <CommitDisplay/>
     </div>
   );

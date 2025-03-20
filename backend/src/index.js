@@ -17,7 +17,7 @@ const PORT=process.env.PORT || 5000;
 //     credentials:false,
 // }));
 
-app.use(cors({ origin: "https://repopilot.netlify.app", credentials: true }));
+app.use(cors());
 
 app.use(clerkMiddleware());
 app.use(express.json());

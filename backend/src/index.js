@@ -23,12 +23,7 @@ app.use(cors({
     allowedHeaders: "Content-Type, Authorization",
 }));
 
-app.options("*", (req, res) => {
-    res.header("Access-Control-Allow-Origin", "https://repopilot.netlify.app");
-    res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
-    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-    res.sendStatus(200);
-});
+app.options("*", cors()); // Handle preflight requests globally
 
 app.use(clerkMiddleware());
 app.use(express.json());

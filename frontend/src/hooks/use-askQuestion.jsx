@@ -28,7 +28,7 @@ export function useAskQuestion(question,projectId){
             // const vectorQuery=`[${queryVector.join(',')}]`; //converted in string to execute in raw sql query later we will cast in vector again
 
             const vectorQuery=queryVector;
-            const result=await axios.post(`${API_BASEURL}/api/${projectId}`,{
+            const result=await axios.post(`${API_BASEURL}/${projectId}`,{
                 vectorQuery
             },{
                 headers: {

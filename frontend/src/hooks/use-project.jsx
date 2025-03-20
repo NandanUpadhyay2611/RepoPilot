@@ -21,11 +21,12 @@ const useProject=()=>{
         queryKey:['projects'],
         queryFn: async ()=>{
             const token=await getToken();
-            const response=await axios.get(`${API_BASEURL}/api/getAllProjects`,{
+            const response=await axios.get(`${API_BASEURL}/getAllProjects`,{
                 headers:{
                     "Content-Type":"application/json",
                     Authorization:`Bearer ${token}`
-                }
+                },
+                credentials:true
             });
             return response.data.projects;
         },

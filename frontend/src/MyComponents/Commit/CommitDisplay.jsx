@@ -17,7 +17,7 @@ const CommitDisplay=()=>{
     const getCommits=async ()=>{
         try{
             const token=await getToken();
-            const response=await axios.get(`${API_BASEURL}/api/getCommits/${selectedProject?.id}`,
+            const response=await axios.get(`${API_BASEURL}/getCommits/${selectedProject?.id}`,
                 {
                     headers:{
                        "Content-Type":"application/json",

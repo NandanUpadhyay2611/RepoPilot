@@ -25,10 +25,10 @@ const InviteButton=()=>{
         Ask them to copy and paste this link
     </p>
     <Input className='mt-4' readOnly onClick={()=>{
-        navigator.clipboard.writeText(`${API_BASEURL}/api/join/${selectedProject?.id}`)
+        navigator.clipboard.writeText(`${API_BASEURL}/join/${selectedProject?.id}`)
         toast.success("Copied to clipboard.")
     }}
-    value={`${API_BASEURL}/api/join/${selectedProject?.id}`} />
+    value={`${API_BASEURL}/join/${selectedProject?.id}`} />
 
 </DialogContent>
         </Dialog>

@@ -15,7 +15,7 @@ const [members,setMembers]=useState([]);
 
         const token=await getToken();
 
-        const response=await axios.get(`${API_BASEURL}/api/teammembers/${selectedProject.id}`,{
+        const response=await axios.get(`${API_BASEURL}/teammembers/${selectedProject.id}`,{
             headers:{
                 "Content-Type":"application/json",
                 Authorization:`Bearer ${token}`

@@ -58,7 +58,7 @@ const saveAnswer=async (outputPassed,fileReferencesPassed)=>{
         const token=await getToken();
         // const {userId}=getAU
         console.log("question passed: ",question);
-    const result=await axios.post(`${API_BASEURL}/api/saveanswer`,{
+    const result=await axios.post(`${API_BASEURL}/saveanswer`,{
        
             projectId:selectedProject?.id,
             question,

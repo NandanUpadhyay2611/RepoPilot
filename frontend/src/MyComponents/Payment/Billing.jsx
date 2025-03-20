@@ -21,7 +21,7 @@ const {getToken}=useAuth();
 
    const getCredits=async()=>{
     const token=await getToken();
-    const response=await axios.get(`${API_BASEURL}/api/getcredits`,{
+    const response=await axios.get(`${API_BASEURL}/getcredits`,{
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,

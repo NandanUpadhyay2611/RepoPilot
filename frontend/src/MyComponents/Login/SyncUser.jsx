@@ -38,7 +38,7 @@ const SyncUser=()=>{
         if(isSignedIn && user){
             const syncUser=async()=>{
                 try{
-                    await axios.post(`${API_BASEURL}/api/sync-user`,{
+                    await axios.post(`${API_BASEURL}/sync-user`,{
                         userId:userId,
                         emailAddress:user.emailAddresses[0]?.emailAddress,
                         firstName:user.firstName,

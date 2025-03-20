@@ -23,7 +23,7 @@ const ArchiveProject = () => {
             const token = await getToken();
 
             const response = await axios.put(
-                `${API_BASEURL}/api/archiveproject/${selectedProject.id}`,
+                `${API_BASEURL}/archiveproject/${selectedProject.id}`,
                 {}, 
                 {
                     headers: {

@@ -7,7 +7,7 @@ const API_BASEURL=import.meta.env.VITE_BACKEND_API_BASEURL;
 export const handlePayment=async(price,credits,getToken)=>{
     try{
 
-        const response=await axios.post(`${API_BASEURL}/api/payment/createorder`,{
+        const response=await axios.post(`${API_BASEURL}/payment/createorder`,{
             amount:price,
             currency: 'USD',
         });
@@ -26,7 +26,7 @@ export const handlePayment=async(price,credits,getToken)=>{
                 try {
                     const token=await getToken();
                     const call = await axios.post(
-                        `${API_BASEURL}/api/addcredits`,
+                        `${API_BASEURL}/addcredits`,
                         { creditsPurchased: credits },
                         {
                             headers: {

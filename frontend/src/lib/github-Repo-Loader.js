@@ -86,7 +86,7 @@ const processedEmbeddings = await Promise.all(
     }))
 );
 
-const embedds = await axios.post(`${API_BASEURL}/api/addEmbeddings`, {
+const embedds = await axios.post(`${API_BASEURL}/addEmbeddings`, {
     embeddings: processedEmbeddings 
 }, {
     headers: {

@@ -89,7 +89,7 @@ export const pullCommits = async (projectId, token) => {
         response.status === 'fulfilled' ? response.value : ""
     );
 
-    const commits = await axios.post(`${API_BASEURL}/api/addCommit`,
+    const commits = await axios.post(`${API_BASEURL}/addCommit`,
         {  
             commits: summaries?.map((summary, index) => ({
                 projectId: projectId,
@@ -139,7 +139,7 @@ async function fetchCommitDiff(githubUrl, commitHash) {
 
 async function fetchProjectGithubUrl(projectId,token){
    
-    const response=await axios.get(`${API_BASEURL}/api/getProject/${projectId}`,{
+    const response=await axios.get(`${API_BASEURL}/getProject/${projectId}`,{
         headers:{
             "Content-Type":"application/json",
             Authorization:`Bearer ${token}`
@@ -161,7 +161,7 @@ async function fetchProjectGithubUrl(projectId,token){
 
 async function filterUnprocessedCommits(projectId,commitHashes,token){
 
-    const response=await axios.get(`${API_BASEURL}/api/getCommits/${projectId}`,
+    const response=await axios.get(`${API_BASEURL}/getCommits/${projectId}`,
         {
             headers:{
                "Content-Type":"application/json",

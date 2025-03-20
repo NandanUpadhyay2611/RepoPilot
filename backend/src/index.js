@@ -11,11 +11,13 @@ const app=express();
 const PORT=process.env.PORT || 5000;
 
 
-app.use(cors({
-    origin: "*",
-    methods: "GET,POST,PUT,DELETE",
-    credentials:false,
-}));
+// app.use(cors({
+//     origin: "*",
+//     methods: "GET,POST,PUT,DELETE",
+//     credentials:false,
+// }));
+
+app.use(cors({ origin: "https://repopilot.netlify.app", credentials: true }));
 
 app.use(clerkMiddleware());
 app.use(express.json());

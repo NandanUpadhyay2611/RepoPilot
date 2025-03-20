@@ -9,6 +9,9 @@ import MDEditor from "@uiw/react-md-editor";
 import CodeReferences from "../Dashboard/CodeReferences";
 import Payment from "../Payment/Billing";
 
+
+const API_BASEURL=import.meta.env.VITE_BACKEND_API_BASEURL;
+
 const QaComponent=()=>{
     const {getToken}= useAuth();
     const {selectedProject}=useProject();
@@ -29,7 +32,7 @@ const formattedDate = question?.createdAt
 
         try{
             const token=await getToken();
-            const response=await axios.get(`http://localhost:5000/api/getquestions/${selectedProject.id}`,{
+            const response=await axios.get(`${API_BASEURL}/getquestions/${selectedProject.id}`,{
 
                 headers:{
                     "Content-Type":"application/json",

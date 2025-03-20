@@ -56,8 +56,7 @@ const saveAnswer=async (outputPassed,fileReferencesPassed)=>{
     
     try{
         const token=await getToken();
-        // const {userId}=getAU
-        console.log("question passed: ",question);
+     
     const result=await axios.post(`${API_BASEURL}/saveanswer`,{
        
             projectId:selectedProject?.id,
@@ -99,7 +98,6 @@ await saveAnswer(outputPassed,fileReferencesPassed);
                     <img src='logo.png'  alt='Repo-Pilot' width={40} height={40}/>
                 </DialogTitle>
         <Button variant={'outline'} onClick={()=>{
-            console.log("Question passed in handle save: ",question);
             
             handleSave(output,fileReferences)}}> Save Answer</Button>
                 </div>

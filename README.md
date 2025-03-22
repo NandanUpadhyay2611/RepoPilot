@@ -96,10 +96,7 @@ We welcome contributions to improve Repo-Pilot! Here are some ways you can contr
 ### 🔧 How This Project Can Be Extended  
 - **Support for Additional Code Hosting Platforms:** Extend Repo-Pilot to integrate with GitLab, Bitbucket, and other platforms.  
 - **Enhanced AI Capabilities:** Improve AI models for more accurate code documentation and intelligent search.  
-- **Customizable Documentation Generation:** Allow users to define documentation formats and styles.  
-- **Advanced Caching Mechanism:** Implement intelligent caching to optimize performance.  
-- **Role-Based Access Control (RBAC):** Introduce user roles for better access management.  
-- **Integration with CI/CD Pipelines:** Automate documentation updates and commit summaries within CI/CD workflows.  
+- **Customizable Documentation Generation:** Allow users to define documentation formats and styles. 
 
 ---
 

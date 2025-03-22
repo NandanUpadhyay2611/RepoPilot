@@ -18,33 +18,26 @@ const SyncUser=()=>{
 
     const { getToken } = useAuth();
 
-    useEffect(() => {
-        const helper = async () => {
-            try {
-                const token = await getToken();
-                if (token) {
-                    localStorage.setItem("authToken", token);
-                    console.log(token);
-                }
-            } catch (error) {
-                console.error("Error fetching token:", error);
-            }
-        };
-        helper();
-    }, [getToken]);  
     
     
     useEffect(()=>{
         if(isSignedIn && user){
             const syncUser=async()=>{
                 try{
+                    // const token= await getToken();
                     await axios.post(`${API_BASEURL}/sync-user`,{
                         userId:userId,
                         emailAddress:user.emailAddresses[0]?.emailAddress,
                         firstName:user.firstName,
                         lastName:user.lastName,
                         imageUrl:user.imageUrl
-                    });
+                    },
+                    {
+                        headers:{
+                            "Content-Type":"application/json"
+                         }
+                    }
+                );
 
                    navigate('/dashboard');
 

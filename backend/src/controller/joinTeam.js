@@ -19,6 +19,7 @@ export const joinTeam=async(req,res)=>{
 const project=await prisma.project.findUnique({
     where:{id:projectId}
 });
+// console.log('project join invite: ',project);
 
 if(!project) return res.redirect(`${process.env.FRONTEND_HOSTED_URL}/dashboard`);
 

@@ -37,7 +37,7 @@ router.post('/askQuestion/:projectId',auth,askQuestion);
 router.post('/saveanswer',auth,saveAnswer);
 router.get('/getquestions/:projectId',auth,getQuestions);
 router.put('/archiveproject/:projectId',auth,archiveProject);
-router.get('/join/:projectId',joinTeam);
+router.get('/join/:projectId',auth,joinTeam);
 router.get('/teammembers/:projectId',auth,getTeamMembers);
 router.post('/payment/createorder',paymentController);
 router.get('/getcredits',auth,getCredits);

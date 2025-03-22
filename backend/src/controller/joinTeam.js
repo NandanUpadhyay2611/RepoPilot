@@ -7,6 +7,7 @@ export const joinTeam=async(req,res)=>{
     const {userId}= getAuth(req);
 
     if(!userId) return res.redirect(`${process.env.FRONTEND_HOSTED_URL}/signin`);
+    // const {userIdAfterSignin}= getAuth(req);
 
     const dbUser=await prisma.user.findUnique({
         where:{

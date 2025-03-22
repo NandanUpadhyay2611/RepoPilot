@@ -6,7 +6,7 @@ export const joinTeam=async(req,res)=>{
 
     const {userId}= getAuth(req);
 
-    if(!userId) return res.redirect('http://localhost:5173/signup')
+    if(!userId) return res.redirect(`${process.env.FRONTEND_HOSTED_URL}/signin`);
 
     const dbUser=await prisma.user.findUnique({
         where:{
@@ -20,7 +20,7 @@ const project=await prisma.project.findUnique({
     where:{id:projectId}
 });
 
-if(!project) return res.redirect("http://localhost:5173/dashboard");
+if(!project) return res.redirect(`${process.env.FRONTEND_HOSTED_URL}/dashboard`);
 
 try{
     await prisma.userToProject.create({
@@ -32,7 +32,7 @@ catch(error){
     
 }
 
-return res.redirect(`http://localhost:5173/dashboard`)
+return res.redirect(`${process.env.FRONTEND_HOSTED_URL}/dashboard`)
 
 }
 

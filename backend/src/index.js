@@ -18,7 +18,7 @@ const PORT=process.env.PORT || 5000;
 // }));
 
 app.use(cors({
-    origin: "https://repopilot.netlify.app", 
+    origin: "https://repopilot.netlify.app",
     methods: "GET,POST,PUT,DELETE,OPTIONS",
     allowedHeaders: "Content-Type, Authorization",
 }));

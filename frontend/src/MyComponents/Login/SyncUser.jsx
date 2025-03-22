@@ -11,7 +11,7 @@ const API_BASEURL=import.meta.env.VITE_BACKEND_API_BASEURL;
 const SyncUser=()=>{
     const navigate = useNavigate();
     const [status,setStatus]=useState('syncing user data')
-    console.log('redirected by signin');
+    // console.log('redirected by signin');
     
     const {isSignedIn,user}=useUser();
     const {userId}=useAuth();

@@ -36,14 +36,13 @@ export function useAskQuestion(question,projectId){
                     Authorization: `Bearer ${token}`
                 }
             });
-            console.log('Result in useAsk Question: ',result);
+           
             setFileReferences(result.data.result);
             
             let context=''
             for(const doc of result.data.result){
                 context+=`source: ${doc.fileName}\ncode content: ${doc.sourceCode}\n summary of file: ${doc.summary}\n\n`
             }
-// console.log("context in useAskQuestion: ",context);
 
             const {textStream}=await streamText({
                 model: google('gemini-1.5-flash'),
@@ -75,11 +74,10 @@ export function useAskQuestion(question,projectId){
                 fullResponse+=delta; //streaming the ai generated content
                 setOutput(fullResponse);
             }
-            console.log("useAskQuestion getting rerendered");
+           
             
         }
         catch(error){
-            console.error("Error: ",error);
             setOutput("Error fetching response.");
         }
         finally{

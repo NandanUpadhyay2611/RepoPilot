@@ -102,7 +102,7 @@ const generateEmbeddings=async (docs)=>{
     return await Promise.all(docs.map(async doc =>{
         const summary=await summarizeCode(doc)
         const embedding=await generateEmbedding(summary)
-        console.log("Source Code: ",JSON.parse(JSON.stringify(doc.pageContent)));
+        // console.log("Source Code: ",JSON.parse(JSON.stringify(doc.pageContent)));
         
         return {
             summary,

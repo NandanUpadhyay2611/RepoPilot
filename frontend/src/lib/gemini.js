@@ -49,7 +49,7 @@ It is given only as an example of appropriate comments."
 
 
 export async function summarizeCode(doc){
-    console.log("Getting summary for: ",doc.metadata.source);
+    // console.log("Getting summary for: ",doc.metadata.source);
     const code=doc.pageContent.slice(0,10000) //limit to 10000 characters
     const response=await model.generateContent([
         `You are an intelligent senior software engineer who specialises in onboardinq junior software engineers onto projects`,

@@ -20,11 +20,15 @@ import QaComponent from "./MyComponents/Qa/QaComponent";
 import SidebarLayoutComponent from "./MyComponents/Dashboard/SidebarLayoutComponent";
 import CreateProjectComponent from "./MyComponents/Create/CreateProjectComponent";
 import Billing from "./MyComponents/Payment/Billing";
+import LandingPage from "./MyComponents/Landing Page/LandingPage";
+import Meeting from "./MyComponents/Meeting/Meeting";
 
 function App() {
   return (
     <div>
       <Routes>
+        <Route path="/" element={<LandingPage/>}></Route>
+        <Route path="/meetings" element={<Meeting/>}></Route>
         <Route
           path="/dashboard"
           element={

@@ -39,7 +39,7 @@ export const pullCommits = async (projectId, token) => {
     const unprocessedCommits = await filterUnprocessedCommits(projectId, commitHashes, token);
 
     if (unprocessedCommits.length === 0) {
-        console.log("No new commits to process.");
+        // console.log("No new commits to process.");
         return; 
     }
 
@@ -50,17 +50,17 @@ export const pullCommits = async (projectId, token) => {
         const batch = unprocessedCommits.slice(i, i + batchSize);
 
         try {
-            console.log(`Processing batch: ${i / batchSize + 1}`);
+            // console.log(`Processing batch: ${i / batchSize + 1}`);
 
             // Fetch all commit diffs in parallel
             const commitDiffs = await Promise.all(batch.map(commit => 
                  fetchCommitDiff(githubUrl, commit.commitHash)
             ));
-            console.log("commit diff in pull commits ",commitDiffs);
+            // console.log("commit diff in pull commits ",commitDiffs);
             
             // Send all commit diffs as a single request for summarization
             const summaries = await aiSummarizeCommit(commitDiffs.join("\n\n"));
-            console.log("Summaries in pull comits ",summaries);
+            // console.log("Summaries in pull comits ",summaries);
             
             const summaryList = summaries.split(/\*\s+/).filter(Boolean);
             
@@ -81,8 +81,8 @@ export const pullCommits = async (projectId, token) => {
         await delay(10000); // Delay to avoid rate limiting
     }
 
-    console.log(summaryResponses.length);
-    console.log("SummaryResponses: ", summaryResponses);
+    // console.log(summaryResponses.length);
+    // console.log("SummaryResponses: ", summaryResponses);
 
     // Prepare commit summaries for storage
     const summaries = summaryResponses?.map(response =>
@@ -122,7 +122,7 @@ async function fetchCommitDiff(githubUrl, commitHash) {
     try{
     const githubUrlToPass=`${githubUrl}/commit/${commitHash}.diff`;
     const {data} = await axios.get(`${API_BASEURL}/githubproxy?url=${encodeURIComponent(githubUrlToPass)}`);
-    console.log("data in fetchCommitdiff: ",data);
+    // console.log("data in fetchCommitdiff: ",data);
     
 
   
@@ -157,7 +157,7 @@ async function fetchProjectGithubUrl(projectId,token){
 
     const project=response.data;
     const githubUrl=project?.project.githubUrl
-    console.log('Inside fetch url',project);
+    // console.log('Inside fetch url',project);
     
 
     if(!githubUrl){

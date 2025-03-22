@@ -94,7 +94,7 @@ useEffect(()=>{
             </div>
 
             {question && (
-                <SheetContent className='sm:max-w-[80vw]'>
+                <SheetContent className="sm:max-w-[80vw] max-h-[80vh] overflow-y-auto">
                     <SheetHeader>
                         <SheetTitle>
                             {question.question}

@@ -21,7 +21,7 @@ export const handlePayment=async(price,credits,getToken)=>{
             description:"Test Transaction",
             order_id:order_id,
             handler: async (response)=>{
-                console.log("razorpay response: ",response);
+                // console.log("razorpay response: ",response);
                 // fnction which increments in db 
                 try {
                     const token=await getToken();
@@ -36,7 +36,7 @@ export const handlePayment=async(price,credits,getToken)=>{
                         }
                     );
 
-                    console.log("Credits Added: ", call.data);
+                    // console.log("Credits Added: ", call.data);
 
 
                     alert(`Payment Successful! Payment ID: ${response.razorpay_payment_id}`);

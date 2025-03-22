@@ -14,7 +14,7 @@ export function SignInComponent(){
             <SignIn
             path="/signin" 
             routing="path" 
-            redirectUrl="/sync-user" 
+            redirectUrl="/sync-user"
             signUpUrl="/signup"/>
             
         </div>

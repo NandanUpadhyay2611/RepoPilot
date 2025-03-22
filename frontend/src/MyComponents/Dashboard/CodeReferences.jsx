@@ -8,7 +8,7 @@ import clsx from "clsx"
 
 const CodeReferences=({filesReferences=[]})=>{
     
-    console.log("fileReferences in codeReferences: ",filesReferences);
+    // console.log("fileReferences in codeReferences: ",filesReferences);
     const [tab,setTab]=useState(filesReferences.length>0? filesReferences[0].fileName : "");
 
     if(filesReferences.length===0) return null
@@ -24,7 +24,7 @@ return (
                             'bg-primary text-primary-foreground': tab===file.fileName,
                         }
                     )}>
-                       { console.log(file.fileName)}
+                       {/* { console.log(file.fileName)} */}
                         
                         {file.fileName}
                     </button>

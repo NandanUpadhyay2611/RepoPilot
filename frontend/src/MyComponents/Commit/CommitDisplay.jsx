@@ -65,8 +65,8 @@ const CommitDisplay=()=>{
     },[selectedProject])
     
   
-console.log("Selected Project in commit display: ",selectedProject);
-console.log("commits",commitsToDisplay);
+// console.log("Selected Project in commit display: ",selectedProject);
+// console.log("commits",commitsToDisplay);
 
 
 return (

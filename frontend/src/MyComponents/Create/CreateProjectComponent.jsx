@@ -87,19 +87,19 @@ const {getToken}=useAuth();
           },
     });
 
-    console.log(response);
+    // console.log(response);
 
     
     if(response.status===200){
 
-        console.log("refetching...");
+        // console.log("refetching...");
         
         // await refetch()
         await queryClient.invalidateQueries({queryKey:['projects']});
         toast.success('Project created successfully!');
       
         reset();
-        console.log('fetching and adding commits...');
+        // console.log('fetching and adding commits...');
         await pullCommits(response.data.project.id,token);
         await indexGithubRepo(data.repoUrl,data.githubToken,token,response.data.project.id);
 
@@ -130,9 +130,7 @@ const {getToken}=useAuth();
              createProject(data);
             }
             else{
-                console.log("Credit Needed:", creditNeeded);
-                console.log("Credits Balance:", creditsBalance);
-                console.log("Has Enough Credits:", hasEnoughCreditsState);
+              
                 getCredits();
                 const creditNeed=checkCredits(data.repoUrl,data.githubToken);
                 setCreditNeeded(creditNeed);
@@ -140,9 +138,9 @@ const {getToken}=useAuth();
                 setHasEnough(hasEnoughCredits);
                 
             }
-            console.log("Credit Needed:", creditNeeded);
-            console.log("Credits Balance:", creditsBalance);
-            console.log("Has Enough Credits:", hasEnoughCreditsState);
+            // console.log("Credit Needed:", creditNeeded);
+            // console.log("Credits Balance:", creditsBalance);
+            // console.log("Has Enough Credits:", hasEnoughCreditsState);
 
     }
 

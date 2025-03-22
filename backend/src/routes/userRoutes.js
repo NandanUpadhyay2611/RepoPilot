@@ -21,6 +21,7 @@ import { getTeamMembers } from "../controller/getTeamMembers.js";
 import { paymentController } from "../controller/payment/paymentController.js";
 import { getCredits } from "../controller/getCredits.js";
 import { addCredit } from "../controller/addCredit.js";
+import { githubProxy } from "../controller/githubProxyForCommit.js";
 // import { createProjectController } from "../controller/createProjectController.js";
 
 
@@ -41,5 +42,6 @@ router.get('/teammembers/:projectId',auth,getTeamMembers);
 router.post('/payment/createorder',paymentController);
 router.get('/getcredits',auth,getCredits);
 router.post('/addCredits',auth,addCredit);
+router.get('/githubproxy',githubProxy);
 export default router;
 

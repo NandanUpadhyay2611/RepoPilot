@@ -22,7 +22,7 @@ export function useAskQuestion(question,projectId){
         try{
             const token=await getToken();
             const queryVector=await generateEmbedding(question);
-            console.log("Query vector in useAsk QUestion: ",queryVector);
+            
             
 
             // const vectorQuery=`[${queryVector.join(',')}]`; //converted in string to execute in raw sql query later we will cast in vector again

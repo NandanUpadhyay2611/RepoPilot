@@ -118,12 +118,21 @@ export const pullCommits = async (projectId, token) => {
 
 // Fetch commit diff
 async function fetchCommitDiff(githubUrl, commitHash) {
-    const { data } = await axios.get(`${githubUrl}/commit/${commitHash}.diff`, {
-        headers: {
-            Accept: 'application/vnd.github.v3.diff'
-        }
-    });
+
+    try{
+    const githubUrlToPass=`${githubUrl}/commit/${commitHash}.diff`;
+    const {data} = await axios.get(`${API_BASEURL}/githubproxy?url=${encodeURIComponent(githubUrlToPass)}`);
+    console.log("data in fetchCommitdiff: ",data);
+    
+
+  
     return data;
+
+}
+catch (error) {
+    console.error("Error fetching commit diff:", error);
+    return null;
+}
 }
 
 

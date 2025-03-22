@@ -6,7 +6,7 @@ export const auth = async (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return res.redirect(`${process.env.FRONTEND_HOSTED_URL}/signup`);
+    return res.status(401).json({ error: "Unauthorized" });
   }
 
   const token = authHeader.split(" ")[1];

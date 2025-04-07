@@ -15,7 +15,7 @@ export const joinTeam=async(req,res)=>{
 
     const dbUser=await prisma.user.findUnique({
         where:{
-            clerkId:userId
+            clerkId:userIdAfterSignin
         }
     });
 

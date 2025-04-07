@@ -100,7 +100,7 @@ const {getToken}=useAuth();
       
         reset();
         // console.log('fetching and adding commits...');
-        await pullCommits(response.data.project.id,token);
+        await pullCommits(response.data.project.id,getToken);
         await indexGithubRepo(data.repoUrl,data.githubToken,token,response.data.project.id);
 
     }

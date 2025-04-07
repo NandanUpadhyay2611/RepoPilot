@@ -33,7 +33,8 @@ export const getCommitHashes=async (githubUrl)=>{
 };
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-export const pullCommits = async (projectId, token) => {
+export const pullCommits = async (projectId, getToken) => {
+    const token=await getToken();
     const { project, githubUrl } = await fetchProjectGithubUrl(projectId, token);
     const commitHashes = await getCommitHashes(githubUrl);
     const unprocessedCommits = await filterUnprocessedCommits(projectId, commitHashes, token);

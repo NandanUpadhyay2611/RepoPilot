@@ -22,7 +22,7 @@ export function SignUpComponent() {
            <SignUp 
         path="/signup" 
         routing="path" 
-        fallbackRedirectUrl="/sync-user"
+        forceRedirectUrl="/sync-user"
         signInUrl="/signin"
           />
         </header>

@@ -29,6 +29,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage/>}></Route>
         <Route path="/meetings" element={<Meeting/>}></Route>
+        <Route path="/join" element={<Meeting/>}></Route>
         <Route
           path="/dashboard"
           element={

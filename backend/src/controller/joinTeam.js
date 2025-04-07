@@ -9,8 +9,8 @@ export const joinTeam=async(req,res)=>{
     console.log("User id before signin: ",userId);
 
     if(!userId) await res.redirect(`${process.env.FRONTEND_HOSTED_URL}/signin`);
-    // const {userIdAfterSignin}= getAuth(req);
-    console.log("User id after signin: ",userId);
+    const {userIdAfterSignin}= getAuth(req);
+    console.log("User id after signin: ",userIdAfterSignin);
     
 
     const dbUser=await prisma.user.findUnique({
@@ -35,7 +35,6 @@ try{
 }
 catch(error){
     console.log("User Already in project");
-    
 }
 
 return res.redirect(`${process.env.FRONTEND_HOSTED_URL}/dashboard`)

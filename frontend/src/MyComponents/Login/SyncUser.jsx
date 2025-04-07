@@ -14,7 +14,10 @@ const SyncUser=()=>{
     // console.log('redirected by signin');
     
     const {isSignedIn,user}=useUser();
-    const {userId}=useAuth();    
+    // const {userId}=useAuth();    
+    const userId=user.id;
+    console.log("user id: ",userId);
+    
 
     const { getToken } = useAuth();
 

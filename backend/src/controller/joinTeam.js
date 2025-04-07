@@ -8,7 +8,7 @@ export const joinTeam=async(req,res)=>{
     
     console.log("User id before signin: ", userId);
 
-    if(!userId) return res.redirect(`${process.env.FRONTEND_HOSTED_URL}/signin`);
+    if(!userId)  res.redirect(`${process.env.FRONTEND_HOSTED_URL}/signin`);
 
     const {userIdAfterSignin}= getAuth(req);
 

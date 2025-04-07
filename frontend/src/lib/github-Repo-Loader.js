@@ -61,7 +61,7 @@ export const loadGithubRepo=async (githubUrl,githubToken)=>{
 const loader=new GithubRepoLoader(githubUrl,{
     accessToken: githubToken || '',
     branch:'main',
-    ignoreFiles: ['package-lock.json','yarn.lock','pnpm-lock.yaml','bun.lockb'],
+    ignoreFiles: ['package-lock.json','yarn.lock','pnpm-lock.yaml','bun.lockb', 'node_modules/**','dist/**','build/**',],
     recursive: true,
     unknown:'warn',
     maxConcurrency:5
@@ -99,16 +99,50 @@ const embedds = await axios.post(`${API_BASEURL}/addEmbeddings`, {
 }
 
 const generateEmbeddings=async (docs)=>{
-    return await Promise.all(docs.map(async doc =>{
-        const summary=await summarizeCode(doc)
-        const embedding=await generateEmbedding(summary)
-        // console.log("Source Code: ",JSON.parse(JSON.stringify(doc.pageContent)));
-        
-        return {
-            summary,
-            embedding,
-            sourceCode: JSON.parse(JSON.stringify(doc.pageContent)),
-            fileName: doc.metadata.source,
-        }
+
+// Inner return	returns 1 object { summary, embedding, sourceCode, fileName } for each doc	1 Promise per doc
+// Outer return	waits for all Promises to finish using Promise.all()	Final Array of all processed docs
+
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+const batchSize=10;
+const summaryResponses=[];
+
+for(let i=0;i<docs.length;i+=batchSize){
+    const batch=docs.slice(i,i+batchSize);
+
+    try{
+        const summarizes=await summarizeCode(batch.join("\n\n"));
+        const summaryList = summarizes.split(/\*\s+/).filter(Boolean);
+
+        batch.forEach((summary,index)=>{
+            summaryResponses.push({status:"fulfilled",
+                value:summaryList[index] || ""
+            });
+        })
+    }
+    catch(error){
+        console.log("batch failed: index Repo: ",error);
+        batch.forEach(summary => {
+            summaryResponses.push({ status: "rejected", reason: error.message });
+        });
+    }
+    await delay(10000);
+}
+
+const summaries = summaryResponses?.map(response =>
+    response.status === 'fulfilled' ? response.value : ""
+);
+
+return await Promise.all(docs.map(async (doc, index) => {
+    const summary = summaries[index];
+    const embedding = await generateEmbedding(summary);
+
+    return {
+        summary,
+        embedding,
+        sourceCode: JSON.parse(JSON.stringify(doc.pageContent)),
+        fileName: doc.metadata.source,
+    }
     }))
 }

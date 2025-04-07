@@ -124,9 +124,7 @@ async function fetchCommitDiff(githubUrl, commitHash) {
     const githubUrlToPass=`${githubUrl}/commit/${commitHash}.diff`;
     const {data} = await axios.get(`${API_BASEURL}/githubproxy?url=${encodeURIComponent(githubUrlToPass)}`);
     // console.log("data in fetchCommitdiff: ",data);
-    
 
-  
     return data;
 
 }

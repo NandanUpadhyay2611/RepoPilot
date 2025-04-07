@@ -41,7 +41,8 @@ const SyncUser=()=>{
                          }
                     }
                 );
-
+                
+                   
                    navigate('/dashboard');
 
                   

@@ -55,17 +55,13 @@ export async function summarizeCode(doc){
     const response=await model.generateContent([
         `You are an intelligent senior software engineer who specialises in onboardinq junior software engineers onto projects Example Summary Comments:
 \`\`\`
-*This `.gitignore` file prevents various files and directories from being tracked by Git.  It ignores compiled code (`.o`, `.exe`, etc.), build artifacts (`.log`, `.tmp`), IDE-specific files (`.sln`, `.vscode`), package management directories (`node_modules`, `venv`), and temporary/backup files (`*~`, `.bak`).  Essentially, it keeps the repository clean by excluding files that are not directly related to the source code and are likely to vary across different development environments.
-
-*`proxy_parse.c` is a HTTP request parsing library.  It defines `ParsedRequest` and `ParsedHeader` structures to represent parsed HTTP requests,  providing functions to parse a raw request buffer into these structures (`ParsedRequest_parse`, `ParsedHeader_parse`),  manipulate headers (set, get, remove), and reconstruct the request from the parsed structures (`ParsedRequest_unparse`).  The code includes error handling and debugging features.  It supports only GET requests and basic HTTP versions.
-
-*This C code implements a caching proxy server.  It handles client HTTP requests, connects to the target server, retrieves the response, and caches it for future requests using a Least Recently Used (LRU) cache.  The server uses threads to handle multiple clients concurrently, employing semaphores to manage concurrency and mutexes for cache access. Error handling includes sending appropriate HTTP status codes.  The `proxy_parse.h` file (not shown) provides parsing functionality for HTTP requests.
-
+Example Summary Comments:
 \`\`\`
-Do not include parts of the example in your summary.
-It is given only as an example of appropriate comments.`,
+*This \`.gitignore\` file prevents various files and directories from being tracked by Git. It ignores compiled code (\`.o\`, \`.exe\`, etc.), build artifacts (\`.log\`, \`.tmp\`), IDE-specific files (\`.sln\`, \`.vscode\`), package management directories (\`node_modules\`, \`venv\`), and temporary/backup files (\`*~\`, \`.bak\`). Essentially, it keeps the repository clean by excluding files that are not directly related to the source code and are likely to vary across different development environments.
+\`\`\`
 
-        
+Do not include parts of the example in your summary. It is given only as an example of appropriate comments.`,
+ 
  `You are onboarding a junior software enqineer and explaining to them the purpose of the ${doc.metadata.source} file
  Here is the code: 
  ---
